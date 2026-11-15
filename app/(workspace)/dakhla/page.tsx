@@ -30,6 +30,8 @@ const riskLabels: Record<string, string> = {
   colmatage_sel: "Colmatage minéral lié au sel",
 };
 
+const staticDemo = process.env.NEXT_PUBLIC_STATIC_DEMO === "true";
+
 function displayStatus(status: string) {
   return status.replaceAll("_", " ");
 }
@@ -81,17 +83,19 @@ export default function DakhlaPage() {
       <PageIntro
         eyebrow="HYDROSAT · API DAKHLA"
         title={<>Dakhla Field01, <em>field signals.</em></>}
-        description="Historical NASA IMERG rainfall, MERRA-2 weather context, PT-JPL ETa, and explainable field-risk outputs from the connected FastAPI backend."
+        description={staticDemo
+          ? "Historical NASA IMERG rainfall, MERRA-2 weather context, PT-JPL ETa, and explainable risk indicators from the bundled Dakhla demo data."
+          : "Historical NASA IMERG rainfall, MERRA-2 weather context, PT-JPL ETa, and explainable field-risk outputs from the connected FastAPI backend."}
         actions={<span className="location-chip"><MapPin size={14} /> 23.683° N · 15.712° W</span>}
       />
 
       <div className={`dakhla-api-banner ${apiError ? "error" : summary ? "connected" : ""}`}>
         <span className="dakhla-api-dot" />
         <div>
-          <strong>{apiError ? "API not connected" : loading ? "Connecting to API…" : "Dust2Farm API connected"}</strong>
+          <strong>{apiError ? "Data unavailable" : loading ? "Loading historical data…" : staticDemo ? "Historical demo data loaded" : "Dust2Farm API connected"}</strong>
           <small>{apiError || (summary ? `${summary.period.days} historical daily records · ${summary.rainfall.source}` : "Waiting for the backend")}</small>
         </div>
-        {apiError && <span className="dakhla-api-hint">Start FastAPI on port 8000</span>}
+        {apiError && !staticDemo && <span className="dakhla-api-hint">Start FastAPI on port 8000</span>}
       </div>
 
       {summary && (

@@ -1,6 +1,10 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_HOST
-  ? `https://${process.env.NEXT_PUBLIC_API_HOST}`
-  : (process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000").replace(/\/$/, "");
+const STATIC_DEMO = process.env.NEXT_PUBLIC_STATIC_DEMO === "true";
+const STATIC_BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const API_BASE = STATIC_DEMO
+  ? `${STATIC_BASE_PATH}/demo-data/dakhla`
+  : process.env.NEXT_PUBLIC_API_HOST
+    ? `https://${process.env.NEXT_PUBLIC_API_HOST}`
+    : (process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000").replace(/\/$/, "");
 
 export type DakhlaDailyRecord = {
   date: string;
@@ -60,13 +64,15 @@ async function getJson<T>(path: string, signal?: AbortSignal): Promise<T> {
 }
 
 export function getDakhlaSummary(signal?: AbortSignal) {
-  return getJson<DakhlaSummary>("/api/dakhla/summary", signal);
+  return getJson<DakhlaSummary>(STATIC_DEMO ? `${API_BASE}/summary.json` : `${API_BASE}/api/dakhla/summary`, signal);
 }
 
 export function getDakhlaSeries(signal?: AbortSignal) {
-  return getJson<{ count: number; rows: DakhlaDailyRecord[] }>("/api/dakhla/series", signal);
+  return getJson<{ count: number; rows: DakhlaDailyRecord[] }>(STATIC_DEMO ? `${API_BASE}/series.json` : `${API_BASE}/api/dakhla/series`, signal);
 }
 
 export function getDakhlaAnalysis(day: string, signal?: AbortSignal) {
-  return getJson<DakhlaAnalysis>(`/api/dakhla/analyze?date=${encodeURIComponent(day)}`, signal);
+  return getJson<DakhlaAnalysis>(STATIC_DEMO
+    ? `${API_BASE}/analysis/${encodeURIComponent(day)}.json`
+    : `${API_BASE}/api/dakhla/analyze?date=${encodeURIComponent(day)}`, signal);
 }

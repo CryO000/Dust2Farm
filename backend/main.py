@@ -77,7 +77,7 @@ def health() -> dict[str, str]:
 def get_overview() -> Overview:
     return Overview(
         farm_name="Hawthorne Farm",
-        location="Linn County, Iowa",
+        location="Dakhla",
         area_acres=sum(zone.acres for zone in ZONES),
         average_moisture=round(sum(zone.moisture for zone in ZONES) / len(ZONES)),
         air_temperature_c=23,

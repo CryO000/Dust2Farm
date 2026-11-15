@@ -22,7 +22,7 @@ export default function FarmPage() {
         eyebrow="FIELD MODEL, HAWTHORNE FARM"
         title={<>Explore your <em>fields.</em></>}
         description="Orbit the terrain, select a zone, and inspect its demo conditions."
-        actions={<span className="location-chip"><MapPin size={14} /> Linn County, Iowa</span>}
+        actions={<span className="location-chip"><MapPin size={14} /> Morocco, Dakhla</span>}
       />
       <DemoNotice>Interactive field model and readings are illustrative. No live satellite, sensor, or irrigation connection.</DemoNotice>
 

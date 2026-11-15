@@ -38,7 +38,7 @@ export default function OverviewPage() {
         eyebrow="SUNDAY, NOVEMBER 15, 2026, FARM OVERVIEW"
         title={<>Farm overview</>}
         description="Current field conditions and operations at Hawthorne Farm."
-        actions={<span className="location-chip"><MapPin size={14} /> Linn County, Iowa</span>}
+        actions={<span className="location-chip"><MapPin size={14} /> Morocco, Dakhla</span>}
       />
       <DemoNotice>Sample readings and recommendations. No live sensors or satellite feeds are connected.</DemoNotice>
 

@@ -62,7 +62,7 @@ export default function OverviewPage() {
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={moistureSeries} margin={{ top: 10, right: 12, bottom: 0, left: -18 }}>
                 <defs><linearGradient id="overviewMoisture" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#388568" stopOpacity={0.19} /><stop offset="95%" stopColor="#388568" stopOpacity={0.01} /></linearGradient></defs>
-                <CartesianGrid vertical={false} stroke="#edf0eb" strokeDasharray="3 5" />
+                <CartesianGrid vertical={false} stroke="#f0eeeb" strokeDasharray="3 5" />
                 <XAxis dataKey="day" tickLine={false} axisLine={false} tick={{ fill: "#98a199", fontSize: 10 }} dy={8} />
                 <YAxis domain={[10, 40]} tickLine={false} axisLine={false} tick={{ fill: "#98a199", fontSize: 10 }} tickFormatter={(value: number) => `${value}%`} />
                 <Tooltip contentStyle={{ border: "1px solid #e8ebe6", borderRadius: 10, fontSize: 12 }} formatter={(value) => [`${value}%`, "Moisture"]} />

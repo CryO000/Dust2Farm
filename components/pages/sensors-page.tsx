@@ -100,11 +100,11 @@ export default function SensorsPage() {
           <div className="sensor-history-chart">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={measurementHistory} margin={{ top: 8, right: 6, bottom: 0, left: -24 }}>
-                <CartesianGrid vertical={false} stroke="#edf0eb" strokeDasharray="3 5" />
+                <CartesianGrid vertical={false} stroke="#f0eeeb" strokeDasharray="3 5" />
                 <XAxis dataKey="day" tickLine={false} axisLine={false} tick={{ fill: "#98a199", fontSize: 9 }} />
                 <YAxis tickLine={false} axisLine={false} tick={{ fill: "#98a199", fontSize: 9 }} />
                 <Tooltip contentStyle={{ border: "1px solid #e8ebe6", borderRadius: 9, fontSize: 11 }} />
-                <Line type="monotone" dataKey="value" name={measurementName} stroke="#438568" strokeWidth={2} dot={{ r: 2, fill: "#438568" }} />
+                <Line type="monotone" dataKey="value" name={measurementName} stroke="#856d43" strokeWidth={2} dot={{ r: 2, fill: "#856d43" }} />
               </LineChart>
             </ResponsiveContainer>
           </div>

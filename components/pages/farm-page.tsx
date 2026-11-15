@@ -48,6 +48,7 @@ export default function FarmPage() {
               <button onClick={() => setShowIrrigation(!showIrrigation)}><i className="control-dot pipe-dot" /><Droplets size={14} />Infrastructure</button>
               <button className={irrigationActive ? "active-water" : ""} onClick={() => setIrrigationActive(!irrigationActive)}><span className={`control-dot ${irrigationActive ? "flow-dot" : "pipe-dot"}`} />{irrigationActive ? "Pause flow" : "Simulate flow"}</button>
             </div>
+            <div className="farm-defect-key"><i />DEFECTIVE SENSOR · S-112</div>
             <div className="farm-scene-legend"><span>MOISTURE</span><i /><small>LOW</small><small>OPTIMAL</small><small>HIGH</small></div>
             <div className="farm-orbit-hint"><RotateCcw size={12} /> Drag to orbit <b>·</b> scroll to zoom <b>·</b> right-drag to pan</div>
           </div>
@@ -67,7 +68,7 @@ export default function FarmPage() {
           <StatusTag tone={statusTone}>{selectedZone.irrigation}</StatusTag>
           <div className="zone-detail-divider" />
           <div className="zone-detail-stat"><span><Droplets size={15} /> Soil moisture</span><strong>{selectedZone.moisture}<small>%</small></strong></div>
-          <div className="zone-detail-progress"><i style={{ width: `${Math.min(selectedZone.moisture * 2.5, 100)}%`, background: selectedZone.moisture < 22 ? "#d4865f" : "#71a98a" }} /></div>
+          <div className="zone-detail-progress"><i style={{ width: `${Math.min(selectedZone.moisture * 2.5, 100)}%`, background: selectedZone.moisture < 22 ? "#d4865f" : "#a88a5a" }} /></div>
           <div className="zone-range"><span>Dry</span><span>Target 25–35%</span><span>Wet</span></div>
           <div className="zone-detail-stat"><span><Thermometer size={15} /> Soil temperature</span><strong>{selectedZone.temperature}<small>°C</small></strong></div>
           <div className="zone-detail-stat"><span><SlidersHorizontal size={15} /> Crop health</span><strong>{selectedZone.health}<small>/100</small></strong></div>

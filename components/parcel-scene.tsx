@@ -48,7 +48,7 @@ export default function ParcelScene({
     if (!host) return;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color("#f7f8f3");
+    scene.background = new THREE.Color("#f7f3eb");
     const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 100);
     camera.position.set(12.4, 11.6, 15.4);
 
@@ -106,6 +106,7 @@ export default function ParcelScene({
     const flowMarkers: THREE.Mesh[] = [];
     const fieldTopMaterials = new Map<string, THREE.MeshStandardMaterial>();
     const zoneMeshes: THREE.Mesh[] = [];
+    const defectiveSensorDots: { mesh: THREE.Mesh; material: THREE.MeshBasicMaterial }[] = [];
 
     zones.forEach((zone) => {
       const [x, , z] = zone.position;
@@ -137,7 +138,7 @@ export default function ParcelScene({
 
       const rows = new THREE.Group();
       const rowMaterial = new THREE.MeshStandardMaterial({
-        color: "#467653",
+        color: "#766446",
         roughness: 0.82,
         transparent: true,
         opacity: 0.74,
@@ -157,7 +158,7 @@ export default function ParcelScene({
           const plantX = x - 2.15 + i * 0.43;
           const plant = new THREE.Mesh(
             new THREE.ConeGeometry(0.075, 0.27, 5),
-            new THREE.MeshStandardMaterial({ color: i % 3 === 0 ? "#73944f" : "#5f824b", roughness: 0.9 }),
+            new THREE.MeshStandardMaterial({ color: i % 3 === 0 ? "#947b4f" : "#826e4b", roughness: 0.9 }),
           );
           plant.position.set(plantX, terrainHeight(plantX, rowZ) + 0.18, rowZ);
           plant.rotation.z = (i % 2 ? 1 : -1) * 0.16;
@@ -175,10 +176,17 @@ export default function ParcelScene({
       stem.position.y = 0.24;
       const head = new THREE.Mesh(
         new THREE.SphereGeometry(0.12, 14, 12),
-        new THREE.MeshStandardMaterial({ color: zone.moisture < 22 ? "#d47e55" : "#e6f4ea", emissive: zone.moisture < 22 ? "#8f321b" : "#438365", emissiveIntensity: 0.45 }),
+        new THREE.MeshStandardMaterial({ color: zone.moisture < 22 ? "#d47e55" : "#f4efe6", emissive: zone.moisture < 22 ? "#8f321b" : "#836c43", emissiveIntensity: 0.45 }),
       );
       head.position.y = 0.51;
       sensor.add(stem, head);
+      if (zone.id === "south") {
+        const defectMaterial = new THREE.MeshBasicMaterial({ color: "#ed3025", transparent: true, toneMapped: false });
+        const defectDot = new THREE.Mesh(new THREE.SphereGeometry(0.06, 12, 10), defectMaterial);
+        defectDot.position.set(0.14, 0.53, 0.02);
+        sensor.add(defectDot);
+        defectiveSensorDots.push({ mesh: defectDot, material: defectMaterial });
+      }
       sensor.position.set(x + (zone.id === "south" ? 1.55 : -1.7), terrainHeight(x, z) + 0.06, z + 0.25);
       sensor.userData = { zoneId: zone.id, kind: "sensor" };
       parcelGroup.add(sensor);
@@ -244,7 +252,7 @@ export default function ParcelScene({
 
     const ground = new THREE.Mesh(
       new THREE.PlaneGeometry(200, 200),
-      new THREE.MeshStandardMaterial({ color: "#f7f8f3", roughness: 1 }),
+      new THREE.MeshStandardMaterial({ color: "#f7f3eb", roughness: 1 }),
     );
     ground.rotation.x = -Math.PI / 2;
     ground.position.y = -0.3;
@@ -287,11 +295,16 @@ export default function ParcelScene({
       fieldTopMaterials.forEach((material, id) => {
         const selected = id === selectionRef.current;
         material.opacity = selected ? 0.88 : 0.66;
-        material.emissive.set(selected ? "#183c24" : "#000000");
+        material.emissive.set(selected ? "#3c2f18" : "#000000");
         material.emissiveIntensity = selected ? 0.12 : 0;
       });
       parcelGroup.children.forEach((child) => {
         if (child.userData.kind === "sensor") child.visible = sensorVisibilityRef.current;
+      });
+      const defectVisible = Math.sin(performance.now() * 0.012) > -0.1;
+      defectiveSensorDots.forEach(({ mesh, material }) => {
+        mesh.visible = sensorVisibilityRef.current;
+        material.opacity = defectVisible ? 1 : 0.18;
       });
       irrigationGroup.visible = irrigationVisibilityRef.current;
       flowMarkers.forEach((marker, index) => {

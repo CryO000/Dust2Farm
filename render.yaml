@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: dust2farm-dakhla-api
+    runtime: python
+    plan: free
+    region: frankfurt
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: DUST2FARM_FRONTEND_HOST
+        fromService:
+          type: web
+          name: dust2farm-dakhla-demo
+          property: host
+
+  - type: web
+    name: dust2farm-dakhla-demo
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start -- --hostname 0.0.0.0 --port $PORT
+    healthCheckPath: /
+    envVars:
+      - key: NEXT_PUBLIC_API_HOST
+        fromService:
+          type: web
+          name: dust2farm-dakhla-api
+          property: host

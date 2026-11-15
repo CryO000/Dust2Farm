@@ -1,6 +1,9 @@
 .next/
+out/
 node_modules/
 .venv/
+public/demo-data/
+demo-qr.png
 __pycache__/
 *.py[cod]
 *.tsbuildinfo

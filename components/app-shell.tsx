@@ -15,6 +15,7 @@ import {
   Wrench,
   X,
   Radio,
+  Satellite,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -24,6 +25,7 @@ import { clearDemoSession, getDemoSession } from "@/lib/demo-session";
 const navigation = [
   { label: "Overview", href: "/", icon: Activity },
   { label: "3D farm", href: "/farm", icon: Map },
+  { label: "Dakhla · NASA data", href: "/dakhla", icon: Satellite },
   { label: "Sensors & monitoring", href: "/sensors", icon: Radio },
   { label: "Irrigation", href: "/irrigation", icon: Droplets },
   { label: "Maintenance", href: "/maintenance", icon: Wrench },
@@ -33,6 +35,7 @@ const navigation = [
 const pageNames: Record<string, string> = {
   "/": "Overview",
   "/farm": "3D Farm Visualization",
+  "/dakhla": "Dakhla NASA Data & Risk Analysis",
   "/sensors": "Sensors & Monitoring",
   "/irrigation": "Irrigation Management",
   "/maintenance": "Maintenance Center",
@@ -43,6 +46,7 @@ const pageNames: Record<string, string> = {
 export default function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
+  const isDakhla = pathname === "/dakhla";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profile, setProfile] = useState({ name: "Jordan Miller", email: "jordan@hawthorne.demo" });
 
@@ -63,8 +67,8 @@ export default function AppShell({ children }: { children: ReactNode }) {
         <span className="brand-copy">Dust<span>2</span>Farm<small>FARM MONITORING</small></span>
       </Link>
       <button className="workspace-picker" type="button">
-        <span className="workspace-avatar">H</span>
-        <span className="workspace-copy"><strong>Hawthorne Farm</strong><small>Demo workspace</small></span>
+        <span className="workspace-avatar">{isDakhla ? "D" : "H"}</span>
+        <span className="workspace-copy"><strong>{isDakhla ? "Dakhla Field01" : "Hawthorne Farm"}</strong><small>{isDakhla ? "Historical data · API" : "Demo workspace"}</small></span>
         <ChevronDown size={15} />
       </button>
       <div className="nav-section">FARM WORKSPACE</div>
@@ -87,9 +91,9 @@ export default function AppShell({ children }: { children: ReactNode }) {
         <div className="satellite-card">
           <div className="satellite-card-icon"><Leaf size={16} /></div>
           <span className="satellite-eyebrow">FIELD NOTE</span>
-          <strong>South Field needs attention</strong>
-          <p>Moisture is below the preferred range. Review the irrigation recommendation.</p>
-          <Link href="/alerts" onClick={() => setMobileOpen(false)}>Review alert <ChevronRight size={13} /></Link>
+          <strong>{isDakhla ? "Dakhla analysis available" : "South Field needs attention"}</strong>
+          <p>{isDakhla ? "Review historical IMERG rainfall, ETa, and data-limited risk signals." : "Moisture is below the preferred range. Review the irrigation recommendation."}</p>
+          <Link href={isDakhla ? "/dakhla" : "/alerts"} onClick={() => setMobileOpen(false)}>{isDakhla ? "Open analysis" : "Review alert"} <ChevronRight size={13} /></Link>
         </div>
         <Link className={`nav-item settings-link ${pathname === "/settings" ? "active" : ""}`} href="/settings" onClick={() => setMobileOpen(false)}>
           <Settings size={17} /><span>Settings</span>
@@ -115,9 +119,9 @@ export default function AppShell({ children }: { children: ReactNode }) {
         <header className="topbar">
           <div className="topbar-left">
             <button className="mobile-menu" onClick={() => setMobileOpen(true)} aria-label="Open navigation"><Menu size={19} /></button>
-            <div className="breadcrumbs"><span>Hawthorne Farm</span><ChevronRight size={14} /><strong>{pageNames[pathname] ?? "Farm workspace"}</strong></div>
+            <div className="breadcrumbs"><span>{isDakhla ? "Dakhla Field01" : "Hawthorne Farm"}</span><ChevronRight size={14} /><strong>{pageNames[pathname] ?? "Farm workspace"}</strong></div>
           </div>
-          <div className="topbar-actions"><span className="demo-mode-chip">DEMO WORKSPACE</span><span className="sync-status">Sample data, Nov 15</span></div>
+          <div className="topbar-actions"><span className="demo-mode-chip">DEMO WORKSPACE</span><span className="sync-status">{isDakhla ? "Historical API data" : "Sample data, Nov 15"}</span></div>
         </header>
         {children}
       </main>

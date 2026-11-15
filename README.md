@@ -4,7 +4,7 @@
 
 Dust2Farm is a precision-agriculture platform prototype for exploring farm conditions, field zones, sensor readings, irrigation context, and vegetation health. It includes a multi-page Next.js workspace, an interactive Three.js parcel model, and a small FastAPI service.
 
-> **Data notice:** The current readings and satellite-pass details are illustrative demo data. No live sensor, NASA Earth observation, or weather provider is connected yet.
+> **Data notice:** The original farm workspace still uses illustrative readings. The new Dakhla page reads bundled historical IMERG, MERRA-2, and PT-JPL ETa data through the FastAPI backend; it is not a live satellite or sensor feed.
 
 ## Run the dashboard
 
@@ -38,7 +38,37 @@ pip install -r backend/requirements.txt
 uvicorn backend.main:app --reload
 ```
 
-Interactive API documentation is available at [http://localhost:8000/docs](http://localhost:8000/docs). The API currently serves typed demo responses at `/api/overview`, `/api/zones`, and `/api/readings`; `/health` is a lightweight health check.
+Interactive API documentation is available at [http://localhost:8000/docs](http://localhost:8000/docs). The original `/api/overview`, `/api/zones`, and `/api/readings` routes serve typed sample farm responses; `/health` is a lightweight health check.
+
+For the local browser-to-API connection, the dashboard defaults to `http://127.0.0.1:8000`. Copy `.env.example` to `.env.local` to override `NEXT_PUBLIC_API_BASE_URL`. If the frontend uses a different host, set `DUST2FARM_CORS_ORIGINS` on the API to a comma-separated list of exact frontend origins.
+
+### Dakhla data endpoints
+
+The `/dakhla` page calls the local API and displays historical rainfall, weather context, ETa, and explainable risk indicators. Run the API and Next.js dashboard in separate terminals. The API includes:
+
+- `GET /api/dakhla/summary` — parcel metadata, source notes, rainfall totals, and ETa summary.
+- `GET /api/dakhla/series?start_date=2026-01-01&end_date=2026-05-31` — daily IMERG rainfall and MERRA-2 context.
+- `GET /api/dakhla/field` — Dakhla Field01 boundary as GeoJSON.
+- `GET /api/dakhla/analyze?date=2026-05-31` — dated risk assessment with missing measurements called out.
+- `POST /api/dakhla/analyze` — same assessment with optional same-day `field` measurements and `anomaly` drivers.
+
+Example API calls:
+
+```bash
+curl -s http://127.0.0.1:8000/api/dakhla/summary | python3 -m json.tool
+curl -s 'http://127.0.0.1:8000/api/dakhla/analyze?date=2026-05-31' | python3 -m json.tool
+```
+
+To include field readings in an assessment, send a POST request. Replace the illustrative flow and pressure values with measurements from the same irrigation cycle:
+
+```bash
+curl -s -X POST http://127.0.0.1:8000/api/dakhla/analyze \
+  -H 'Content-Type: application/json' \
+  -d '{"date":"2026-05-31","field":{"irrigation_active":true,"flow_lph":120,"expected_flow_lph":100,"pressure_end_bar":1.1,"expected_pressure_end_bar":1.5}}' \
+  | python3 -m json.tool
+```
+
+The bundled Dakhla rainfall is GPM IMERG Late V07 on a 0.1° grid; ETa is a historical 10 m map dated 2026-05-31. No field sensor labels or soil/pipe inspections are bundled, so the API leaves those risk classes undetermined until measurements are supplied. Other dashboard pages continue to show the original sample farm.
 
 ## Current scope and limitations
 

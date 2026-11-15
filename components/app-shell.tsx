@@ -60,7 +60,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
     <>
       <Link className="brand" href="/" onClick={() => setMobileOpen(false)}>
         <span className="brand-mark"><Sprout size={19} strokeWidth={2.2} /></span>
-        <span className="brand-copy">dust<span>2</span>farm<small>FIELD INTELLIGENCE</small></span>
+        <span className="brand-copy">Dust<span>2</span>Farm<small>FARM MONITORING</small></span>
       </Link>
       <button className="workspace-picker" type="button">
         <span className="workspace-avatar">H</span>
@@ -117,7 +117,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
             <button className="mobile-menu" onClick={() => setMobileOpen(true)} aria-label="Open navigation"><Menu size={19} /></button>
             <div className="breadcrumbs"><span>Hawthorne Farm</span><ChevronRight size={14} /><strong>{pageNames[pathname] ?? "Farm workspace"}</strong></div>
           </div>
-          <div className="topbar-actions"><span className="demo-mode-chip"><i /> DEMO WORKSPACE</span><span className="sync-status"><i />Sample data · Nov 15</span></div>
+          <div className="topbar-actions"><span className="demo-mode-chip">DEMO WORKSPACE</span><span className="sync-status">Sample data, Nov 15</span></div>
         </header>
         {children}
       </main>

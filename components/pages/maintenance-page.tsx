@@ -25,7 +25,7 @@ export default function MaintenancePage() {
 
   return (
     <div className="workspace-content">
-      <PageIntro eyebrow="FARM WORKSPACE · OPERATIONS" title={<>Keep every system <em>ready.</em></>} description="Track sensor service, irrigation hardware, and upcoming maintenance tasks." actions={<button className="primary-button" onClick={() => setMessage("New maintenance tasks can be planned here when connected to your operations system.")}><Plus size={15} />Add maintenance task</button>} />
+      <PageIntro eyebrow="FARM WORKSPACE, OPERATIONS" title={<>Maintenance</>} description="Track sensor service, irrigation equipment, and upcoming maintenance tasks." actions={<button className="primary-button" onClick={() => setMessage("New maintenance tasks can be planned here when connected to your operations system.")}><Plus size={15} />Add maintenance task</button>} />
       <DemoNotice>Maintenance records and task updates are local demo data; no work order system is connected.</DemoNotice>
       <section className="stats-grid three-stats">
         <StatCard label="Overdue tasks" value={String(overdueCount)} note="Review before next cycle" icon={<CircleAlert size={17} />} tone="amber" />

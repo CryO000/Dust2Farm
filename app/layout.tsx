@@ -3,9 +3,9 @@ import "./globals.css";
 import "./platform.css";
 
 export const metadata: Metadata = {
-  title: "Dust2Farm — Field intelligence",
+  title: "Dust2Farm | Farm monitoring",
   description:
-    "From Earth observation to smarter agriculture. A clear view of your field, soil, and next best action.",
+    "Farm monitoring for field conditions, sensors, irrigation, and maintenance.",
 };
 
 export default function RootLayout({

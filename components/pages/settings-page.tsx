@@ -69,7 +69,7 @@ export default function SettingsPage() {
 
   return (
     <div className="workspace-content">
-      <PageIntro eyebrow="FARM WORKSPACE · PREFERENCES" title={<>Make your workspace <em>yours.</em></>} description="Tune display and notification preferences for this device." />
+      <PageIntro eyebrow="FARM WORKSPACE, PREFERENCES" title={<>Workspace preferences</>} description="Set display and notification preferences for this device." />
       <DemoNotice>Settings are stored in this browser only. They are not synced to an account or service.</DemoNotice>
       <section className="settings-layout">
         <div className="settings-main">
@@ -94,8 +94,8 @@ export default function SettingsPage() {
 
         <aside className="settings-side">
           <article className="workspace-panel settings-side-card"><span className="settings-side-icon"><ShieldCheck size={18} /></span><h2>Privacy & access</h2><p>This prototype does not connect to real farm accounts or verify credentials. Demo preferences and session state stay in this browser.</p><div className="settings-side-line"><Globe2 size={14} /><span>No external accounts connected</span></div></article>
-          <article className="workspace-panel settings-side-card"><span className="settings-side-icon green"><Satellite size={18} /></span><h2>Data sources</h2><p>Real provider connections can be configured when backend integrations are added.</p><div className="source-list"><span><i />Satellite imagery <b>Not connected</b></span><span><i />Weather provider <b>Not connected</b></span><span><i />Field sensors <b>Demo data</b></span></div></article>
-          <article className="settings-side-note"><Leaf size={15} /><span>From Earth Observation to Smarter Agriculture.</span></article>
+          <article className="workspace-panel settings-side-card"><span className="settings-side-icon green"><Satellite size={18} /></span><h2>Data sources</h2><p>External data providers are not connected.</p><div className="source-list"><span>Satellite imagery <b>Not connected</b></span><span>Weather provider <b>Not connected</b></span><span>Field sensors <b>Demo data</b></span></div></article>
+          <article className="settings-side-note"><Leaf size={15} /><span>Farm monitoring and field operations</span></article>
         </aside>
       </section>
       <div className="settings-units-footnote"><Ruler size={13} />Changing units updates this local preference; demo values are not converted from a live source.</div>

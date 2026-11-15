@@ -35,17 +35,17 @@ export default function OverviewPage() {
   return (
     <div className="workspace-content">
       <PageIntro
-        eyebrow="SUNDAY, NOVEMBER 15, 2026 · FIELD OVERVIEW"
-        title={<>Your farm, <em>in focus.</em></>}
-        description="A calm, clear overview of what matters across Hawthorne Farm today."
+        eyebrow="SUNDAY, NOVEMBER 15, 2026, FARM OVERVIEW"
+        title={<>Farm overview</>}
+        description="Current field conditions and operations at Hawthorne Farm."
         actions={<span className="location-chip"><MapPin size={14} /> Linn County, Iowa</span>}
       />
       <DemoNotice>Sample readings and recommendations. No live sensors or satellite feeds are connected.</DemoNotice>
 
       <section className="stats-grid overview-stats" aria-label="Farm overview">
         <StatCard label="Total farm area" value={totalArea} unit="acres" note="4 managed field zones" icon={<MapPin size={17} />} />
-        <StatCard label="Average soil moisture" value="30" unit="%" note="Optimal band · 25–35%" icon={<Droplets size={17} />} tone="blue" />
-        <StatCard label="Air conditions" value="23°" unit="C · 62% RH" note="Partly cloudy · light breeze" icon={<CloudSun size={17} />} tone="amber" />
+        <StatCard label="Average soil moisture" value="30" unit="%" note="Target range: 25-35%" icon={<Droplets size={17} />} tone="blue" />
+        <StatCard label="Air conditions" value="23°" unit="C, 62% RH" note="Partly cloudy, light breeze" icon={<CloudSun size={17} />} tone="amber" />
         <StatCard label="Crop health" value="86" unit="/ 100" note="Illustrative Sentinel-2 NDVI" icon={<Leaf size={17} />} tone="violet" />
       </section>
 
@@ -57,16 +57,16 @@ export default function OverviewPage() {
               <option>7 days</option><option>30 days</option>
             </select>
           </div>
-          <div className="overview-chart-summary"><strong>30%</strong><StatusTag tone="blue">Within target</StatusTag><span>Target 25–35%</span></div>
+          <div className="overview-chart-summary"><strong>30%</strong><StatusTag tone="blue">Within target</StatusTag><span>Target 25-35%</span></div>
           <div className="overview-chart">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={moistureSeries} margin={{ top: 10, right: 12, bottom: 0, left: -18 }}>
                 <defs><linearGradient id="overviewMoisture" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#388568" stopOpacity={0.19} /><stop offset="95%" stopColor="#388568" stopOpacity={0.01} /></linearGradient></defs>
-                <CartesianGrid vertical={false} stroke="#f0eeeb" strokeDasharray="3 5" />
+                <CartesianGrid vertical={false} stroke="#f0eeeb" />
                 <XAxis dataKey="day" tickLine={false} axisLine={false} tick={{ fill: "#98a199", fontSize: 10 }} dy={8} />
                 <YAxis domain={[10, 40]} tickLine={false} axisLine={false} tick={{ fill: "#98a199", fontSize: 10 }} tickFormatter={(value: number) => `${value}%`} />
                 <Tooltip contentStyle={{ border: "1px solid #e8ebe6", borderRadius: 10, fontSize: 12 }} formatter={(value) => [`${value}%`, "Moisture"]} />
-                <Area type="monotone" dataKey="target" stroke="#c5cec5" strokeDasharray="4 5" strokeWidth={1.5} fill="none" dot={false} />
+                <Area type="monotone" dataKey="target" stroke="#c5cec5" strokeWidth={1.5} fill="none" dot={false} />
                 <Area type="monotone" dataKey="moisture" stroke="#37876a" strokeWidth={2.5} fill="url(#overviewMoisture)" activeDot={{ r: 4, fill: "#37876a", stroke: "white", strokeWidth: 2 }} />
               </AreaChart>
             </ResponsiveContainer>
@@ -81,7 +81,7 @@ export default function OverviewPage() {
           </div>
           <div className="alert-feature-metric"><Droplets size={20} /><strong>19<span>%</span></strong><small>soil moisture</small></div>
           <p>Current readings are below the preferred range. Review the irrigation recommendation and sensor status before acting.</p>
-          <div className="alert-card-meta"><span><Radio size={14} /> Sensor S-112 · battery 34%</span><StatusTag tone="amber">Review suggested</StatusTag></div>
+          <div className="alert-card-meta"><span><Radio size={14} /> Sensor S-112, battery 34%</span><StatusTag tone="amber">Review suggested</StatusTag></div>
           <Link className="primary-link-button" href="/alerts">Review alerts and recommendations <ArrowRight size={15} /></Link>
         </article>
       </section>
@@ -110,7 +110,7 @@ export default function OverviewPage() {
           <Link className="quiet-link readiness-link" href="/sensors">Review all monitoring data <ArrowRight size={13} /></Link>
         </article>
       </section>
-      <footer className="workspace-footer"><span>Dust2Farm <i>·</i> From Earth Observation to Smarter Agriculture</span><span><Satellite size={13} /> Satellite imagery shown as illustrative demo context</span></footer>
+      <footer className="workspace-footer"><span>Dust2Farm, farm monitoring</span><span><Satellite size={13} /> Satellite imagery is illustrative demo data</span></footer>
     </div>
   );
 }

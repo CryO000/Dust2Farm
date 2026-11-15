@@ -14,7 +14,7 @@ export function PageIntro({
   return (
     <div className="page-intro">
       <div>
-        <div className="eyebrow-line"><span className="eyebrow-dot" />{eyebrow}</div>
+        <div className="eyebrow-line">{eyebrow}</div>
         <h1>{title}</h1>
         <p>{description}</p>
       </div>
@@ -48,7 +48,7 @@ export function StatCard({
 }
 
 export function StatusTag({ children, tone = "green" }: { children: ReactNode; tone?: string }) {
-  return <span className={`status-tag ${tone}`}><i />{children}</span>;
+  return <span className={`status-tag ${tone}`}>{children}</span>;
 }
 
 export function DemoNotice({ children }: { children: ReactNode }) {

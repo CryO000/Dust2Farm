@@ -18,6 +18,6 @@ export default function AuthGate({ children }: { children: ReactNode }) {
     setReady(true);
   }, [router, pathname]);
 
-  if (!ready) return <LoadingScreen message="Connecting to your demo farm..." />;
+  if (!ready) return <LoadingScreen message="Loading demo farm" />;
   return children;
 }

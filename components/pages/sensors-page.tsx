@@ -50,12 +50,12 @@ export default function SensorsPage() {
 
   return (
     <div className="workspace-content">
-      <PageIntro eyebrow="FARM WORKSPACE · MONITORING" title={<>Sensors & <em>monitoring.</em></>} description="Review device health, recent measurements, and maintenance windows." />
+      <PageIntro eyebrow="FARM WORKSPACE, MONITORING" title={<>Sensors and monitoring</>} description="Review device status, recent measurements, and maintenance dates." />
       <DemoNotice>Sensor values, connection states, battery levels, and maintenance dates are sample data.</DemoNotice>
       <section className="stats-grid three-stats">
         <StatCard label="Registered sensors" value={String(sensors.length)} note="Across all monitored areas" icon={<Radio size={17} />} />
         <StatCard label="Online now" value={String(onlineCount)} unit={`/ ${sensors.length}`} note="Sample device status" icon={<Signal size={17} />} tone="blue" />
-        <StatCard label="Needs attention" value={String(sensors.length - onlineCount)} note={`${lowBatteryCount} low battery · 1 offline`} icon={<BatteryWarning size={17} />} tone="amber" />
+        <StatCard label="Needs attention" value={String(sensors.length - onlineCount)} note={`${lowBatteryCount} low battery, 1 offline`} icon={<BatteryWarning size={17} />} tone="amber" />
       </section>
 
       <section className="sensor-layout-grid">
@@ -79,7 +79,7 @@ export default function SensorsPage() {
                 <tr key={sensor.id} className={selectedSensor.id === sensor.id ? "row-selected" : ""} onClick={() => setSelectedId(sensor.id)}>
                   <td><strong className="table-primary">{sensor.id}</strong></td>
                   <td><span className="table-icon-text">{sensorIcon(sensor.type)}<span><strong>{sensor.type}</strong><small>{sensor.location}</small></span></span></td>
-                  <td><strong>{sensor.latest}{sensor.unit}</strong><small className="table-subtext">{sensor.status === "Offline" ? "Last reported · 2h ago" : "8 min ago"}</small></td>
+                  <td><strong>{sensor.latest}{sensor.unit}</strong><small className="table-subtext">{sensor.status === "Offline" ? "Last reported, 2h ago" : "8 min ago"}</small></td>
                   <td>{sensor.battery === null ? <span className="unavailable">Hard-wired</span> : <span className={`battery-cell ${sensor.battery < 40 ? "low" : ""}`}><Battery size={14} />{sensor.battery}%</span>}</td>
                   <td><StatusTag tone={statusTone(sensor.status)}>{sensor.status}</StatusTag></td>
                   <td><span className={sensor.nextMaintenance === "Overdue" ? "overdue-text" : ""}>{sensor.nextMaintenance}</span></td>
@@ -88,7 +88,7 @@ export default function SensorsPage() {
             </table>
             {filteredSensors.length === 0 && <div className="empty-table-state"><Search size={19} /><strong>No matching sensors</strong><span>Try changing the search or filters.</span></div>}
           </div>
-          <div className="table-panel-footer"><span>Measurements are demo values, not live telemetry.</span><span><i className="demo-live-dot" />Sample refresh cadence · 15 minutes</span></div>
+          <div className="table-panel-footer"><span>Measurements are sample data, not live readings.</span><span>Sample refresh interval, 15 minutes</span></div>
         </article>
 
         <aside className="workspace-panel sensor-detail-panel">

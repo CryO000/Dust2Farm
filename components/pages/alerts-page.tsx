@@ -27,7 +27,7 @@ export default function AlertsPage() {
 
   return (
     <div className="workspace-content">
-      <PageIntro eyebrow="FARM WORKSPACE · FIELD INTELLIGENCE" title={<>Signals worth your <em>attention.</em></>} description="Triage field alerts and review practical recommendations in one place." />
+      <PageIntro eyebrow="FARM WORKSPACE, ALERTS" title={<>Alerts and recommendations</>} description="Review field alerts and recommended actions." />
       <DemoNotice>Alert events and recommendations below are examples generated from bundled demo readings.</DemoNotice>
       <div className="alert-summary-strip">
         <span><Bell size={16} /><strong>{openCount}</strong> open alerts</span>
@@ -48,7 +48,7 @@ export default function AlertsPage() {
             <div className="alert-list-main">
               <div className="alert-title-row"><h2>{alert.title}</h2><StatusTag tone={alert.priority === "High" ? "red" : alert.priority === "Medium" ? "amber" : "green"}>{alert.priority} priority</StatusTag><span className="alert-time">{alert.time}</span></div>
               <p>{alert.description}</p>
-              <div className="alert-list-meta"><span>{alert.category}</span><i />{alert.location}<i />ID {alert.id}</div>
+              <div className="alert-list-meta"><span>{alert.category}</span>, {alert.location}, ID {alert.id}</div>
               {alert.status === "Acknowledged" && <span className="alert-status-text"><Check size={12} /> Acknowledged</span>}
               {alert.status === "Resolved" && <span className="alert-status-text resolved"><CheckCheck size={12} /> Resolved</span>}
             </div>
@@ -62,7 +62,7 @@ export default function AlertsPage() {
       </section>
       <section className="recommendation-row">
         <div className="recommendation-row-icon"><Satellite size={18} /></div>
-        <div><span className="panel-kicker">AGRICULTURAL RECOMMENDATION · DEMO</span><h2>Consider a short evening irrigation cycle</h2><p>South Field moisture is below the illustrative target band. Confirm local conditions before acting.</p></div>
+        <div><span className="panel-kicker">RECOMMENDATION, DEMO</span><h2>Review South Field irrigation</h2><p>Sample soil moisture is below the target range. Confirm local conditions before irrigating.</p></div>
         <Link href="/irrigation">Review irrigation plan <ArrowRight size={14} /></Link>
       </section>
     </div>

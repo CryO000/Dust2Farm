@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Eye, EyeOff, Leaf, LockKeyhole, Mail, Satellite, Sprout } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, LockKeyhole, Mail, Satellite, Sprout } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -19,35 +19,34 @@ export default function LoginPage() {
 
   return (
     <main className="login-page">
-      <section className="login-art" aria-label="Dust2Farm agricultural intelligence">
+      <section className="login-art" aria-label="Dust2Farm farm monitoring">
         <div className="login-art-image" />
         <Link className="login-brand" href="/login">
           <span className="brand-mark"><Sprout size={20} /></span>
-          <span className="brand-copy">dust<span>2</span>farm<small>FIELD INTELLIGENCE</small></span>
+          <span className="brand-copy">Dust<span>2</span>Farm<small>FARM MONITORING</small></span>
         </Link>
         <div className="login-art-content">
-          <span className="login-overline"><Satellite size={14} /> FROM EARTH OBSERVATION</span>
-          <h1>Better decisions<br />start <em>beneath the surface.</em></h1>
-          <p>Bring your fields, sensors, and satellite insights together — and make every growing season count.</p>
+          <span className="login-overline"><Satellite size={14} /> FARM OPERATIONS</span>
+          <h1>Farm conditions<br />and operations.</h1>
+          <p>Review field conditions, sensor readings, irrigation schedules, and maintenance in one place.</p>
         </div>
-        <div className="login-image-caption"><span><i /> FARM LANDSCAPE · IOWA, USA</span><span>41.878° N &nbsp; 93.097° W</span></div>
-        <div className="login-quote"><Leaf size={15} /><span>“Healthy soil is the foundation of a resilient farm.”</span></div>
+        <div className="login-image-caption"><span>HAWTHORNE FARM, IOWA</span><span>41.878° N, 93.097° W</span></div>
       </section>
 
       <section className="login-form-side">
         <div className="login-mobile-brand">
-          <span className="brand-mark"><Sprout size={20} /></span><span className="brand-copy">dust<span>2</span>farm<small>FIELD INTELLIGENCE</small></span>
+          <span className="brand-mark"><Sprout size={20} /></span><span className="brand-copy">Dust<span>2</span>Farm<small>FARM MONITORING</small></span>
         </div>
         <div className="login-form-card">
           <div className="login-heading">
-            <span className="login-kicker">WELCOME TO YOUR WORKSPACE</span>
-            <h2>Good to see you.</h2>
-            <p>Sign in to your farm intelligence dashboard.</p>
+            <span className="login-kicker">DEMO WORKSPACE</span>
+            <h2>Farm monitoring</h2>
+            <p>Open the sample farm workspace.</p>
           </div>
 
           <div className="auth-demo-banner">
             <span className="auth-demo-mark"><Sprout size={16} /></span>
-            <span><strong>Demo authentication is active</strong><small>No password is checked or sent. Continue to explore a sample farm workspace.</small></span>
+            <span><strong>Demo access</strong><small>No account or password is required. The workspace uses sample data.</small></span>
           </div>
 
           <form onSubmit={(event) => { event.preventDefault(); enterDemo(); }}>
@@ -65,7 +64,7 @@ export default function LoginPage() {
           <p className="signup-prompt">Need a real account? <button onClick={() => setNotice("Account creation is not enabled in this prototype. Contact your workspace administrator.")}>Create an account</button></p>
           <div className="login-secure-note"><LockKeyhole size={13} /> Real sign-in will be enabled when an authentication provider is configured.</div>
         </div>
-        <footer className="login-footer"><span>© 2026 Dust2Farm</span><span>From Earth Observation to Smarter Agriculture</span></footer>
+        <footer className="login-footer"><span>© 2026 Dust2Farm</span><span>Farm monitoring and field operations</span></footer>
       </section>
     </main>
   );

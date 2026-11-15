@@ -70,6 +70,24 @@ curl -s -X POST http://127.0.0.1:8000/api/dakhla/analyze \
 
 The bundled Dakhla rainfall is GPM IMERG Late V07 on a 0.1° grid; ETa is a historical 10 m map dated 2026-05-31. No field sensor labels or soil/pipe inspections are bundled, so the API leaves those risk classes undetermined until measurements are supplied. Other dashboard pages continue to show the original sample farm.
 
+## Public jury demo and QR code
+
+The repository includes a Render Blueprint for the Next.js dashboard and FastAPI service. After merging the demo changes into `main3`:
+
+1. Sign in to Render, choose **New → Blueprint**, connect `CryO000/Dust2Farm`, and select branch `main3`.
+2. Review the two free services in `render.yaml` and apply the Blueprint. Render builds the frontend and API from GitHub and wires their public hostnames together.
+3. When both services show **Live**, open `https://dust2farm-dakhla-demo.onrender.com/dakhla` (or the frontend URL shown in Render if the name was changed). Check that the rainfall chart and risk cards load.
+4. Generate a printable QR code to the live Dakhla page:
+
+   ```bash
+   python3 -m pip install "qrcode[pil]"
+   python3 scripts/generate_demo_qr.py https://dust2farm-dakhla-demo.onrender.com/dakhla
+   ```
+
+   The script saves `demo-qr.png` in the repository root. If Render assigned a different frontend URL, pass that exact URL instead.
+
+Free Render web services sleep after 15 minutes without traffic and can take about a minute to wake up. Open the demo once shortly before the jury scans the QR code; upgrade the Render plan if the demo must stay warm. The QR points to the hosted app, not to a local computer or GitHub source page.
+
 ## Current scope and limitations
 
 - Responsive overview, full-page farm visualization, sensors, irrigation, maintenance, alerts, and settings routes.

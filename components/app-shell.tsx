@@ -22,6 +22,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
 import { clearDemoSession, getDemoSession } from "@/lib/demo-session";
 
+const staticDemo = process.env.NEXT_PUBLIC_STATIC_DEMO === "true";
+
 const navigation = [
   { label: "Overview", href: "/", icon: Activity },
   { label: "3D farm", href: "/farm", icon: Map },
@@ -68,7 +70,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
       </Link>
       <button className="workspace-picker" type="button">
         <span className="workspace-avatar">{isDakhla ? "D" : "H"}</span>
-        <span className="workspace-copy"><strong>{isDakhla ? "Dakhla Field01" : "Hawthorne Farm"}</strong><small>{isDakhla ? "Historical data · API" : "Demo workspace"}</small></span>
+        <span className="workspace-copy"><strong>{isDakhla ? "Dakhla Field01" : "Hawthorne Farm"}</strong><small>{isDakhla ? staticDemo ? "Historical static demo" : "Historical data · API" : "Demo workspace"}</small></span>
         <ChevronDown size={15} />
       </button>
       <div className="nav-section">FARM WORKSPACE</div>
@@ -121,7 +123,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
             <button className="mobile-menu" onClick={() => setMobileOpen(true)} aria-label="Open navigation"><Menu size={19} /></button>
             <div className="breadcrumbs"><span>{isDakhla ? "Dakhla Field01" : "Hawthorne Farm"}</span><ChevronRight size={14} /><strong>{pageNames[pathname] ?? "Farm workspace"}</strong></div>
           </div>
-          <div className="topbar-actions"><span className="demo-mode-chip">DEMO WORKSPACE</span><span className="sync-status">{isDakhla ? "Historical API data" : "Sample data, Nov 15"}</span></div>
+          <div className="topbar-actions"><span className="demo-mode-chip">DEMO WORKSPACE</span><span className="sync-status">{isDakhla ? staticDemo ? "Bundled historical data" : "Historical API data" : "Sample data, Nov 15"}</span></div>
         </header>
         {children}
       </main>

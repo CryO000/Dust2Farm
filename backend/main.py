@@ -15,12 +15,17 @@ app = FastAPI(
     version="1.0.0",
 )
 
+cors_origins = [origin.strip() for origin in os.environ.get(
+    "DUST2FARM_CORS_ORIGINS",
+    "http://localhost:3000,http://127.0.0.1:3000",
+).split(",") if origin.strip()]
+frontend_host = os.environ.get("DUST2FARM_FRONTEND_HOST", "").strip()
+if frontend_host:
+    cors_origins.append(f"https://{frontend_host}")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[origin.strip() for origin in os.environ.get(
-        "DUST2FARM_CORS_ORIGINS",
-        "http://localhost:3000,http://127.0.0.1:3000",
-    ).split(",") if origin.strip()],
+    allow_origins=cors_origins,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )

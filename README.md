@@ -83,7 +83,31 @@ curl -s -X POST http://127.0.0.1:8000/api/dakhla/analyze \
 
 The bundled Dakhla rainfall is GPM IMERG Late V07 on a 0.1° grid; ETa is a historical 10 m map dated 2026-05-31. No field sensor labels or soil/pipe inspections are bundled, so the API leaves those risk classes undetermined until measurements are supplied. Other dashboard pages continue to show the original sample farm.
 
-Demo data for ET and NDVI and LSWI
+## Dakhla monitoring
+
+The Dakhla Field01 module combines historical Earth-observation and weather context for field monitoring. Its current bundle covers 151 daily records from January 1 to May 31, 2026, for a 31.53 ha parcel.
+
+- **Rainfall:** NASA GPM IMERG Late V07 at the nearest 0.1° grid cell; this is a regional satellite estimate, not a parcel rain gauge.
+- **Weather:** MERRA-2 daily temperature, wind, and relative-humidity context.
+- **Evapotranspiration:** one historical PT-JPL ETa map at 10 m resolution for May 31, 2026, summarized across three synthetic zones.
+- **Risk indicators:** tomato air-humidity conditions, flow/pressure leak signatures, erosion, soil salinity, and salt- or solids-related clogging. Missing field measurements are reported as undetermined.
+
+The current daily series does not yet contain usable NDVI, LSWI, NDSI, or salinity-index observations; those index fields are empty. The shared ET, NDVI, and LSWI materials are linked here for reference and still need to be ingested before they can drive the dashboard:
+
+
+https://github.com/user-attachments/assets/a9b4b121-39e3-499d-8722-7da42772581c
+
+
+
+
+
+https://github.com/user-attachments/assets/e357cc41-3822-4073-b443-e3e0e2d9d807
+
+
+
+https://drive.google.com/drive/folders/1gLJw1RXVaVuA2d5mhmbmPmA9dgR9xiWr?usp=drive_link
+
+
 
 ## Current scope and limitations
 

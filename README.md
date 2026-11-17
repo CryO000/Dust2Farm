@@ -83,7 +83,7 @@ curl -s -X POST http://127.0.0.1:8000/api/dakhla/analyze \
 
 The bundled Dakhla rainfall is GPM IMERG Late V07 on a 0.1° grid; ETa is a historical 10 m map dated 2026-05-31. No field sensor labels or soil/pipe inspections are bundled, so the API leaves those risk classes undetermined until measurements are supplied. Other dashboard pages continue to show the original sample farm.
 
-##Demo data for ET and NDVI and LSWI:
+## Demo data for ET and NDVI and LSWI:
 
 
 https://github.com/user-attachments/assets/a9b4b121-39e3-499d-8722-7da42772581c

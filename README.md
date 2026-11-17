@@ -90,7 +90,10 @@ https://github.com/user-attachments/assets/a9b4b121-39e3-499d-8722-7da42772581c
 
 
 
-Uploading ET_and_ET0_daily_Dakhla_Field01.mp4…
+
+
+https://github.com/user-attachments/assets/e357cc41-3822-4073-b443-e3e0e2d9d807
+
 
 
 
